@@ -1,0 +1,14 @@
+{
+  "name": "tai-spider-examples",
+  "version": "1.0.0",
+  "description": "Examples for TaiSpider",
+  "main": "index.js",
+  "scripts": {
+    "taispider": "taispider"
+  },
+  "author": "Edward Zhu <zhuhy163@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "tai-spider": "^0.1.2"
+  }
+}
