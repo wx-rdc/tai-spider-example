@@ -9,6 +9,6 @@
   "author": "Edward Zhu <zhuhy163@163.com>",
   "license": "MIT",
   "dependencies": {
-    "tai-spider": "^0.1.2"
+    "tai-spider": "^0.1.4"
   }
 }

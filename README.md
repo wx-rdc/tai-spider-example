@@ -8,6 +8,7 @@ Tai Spider is grown from [node-crawler](https://github.com/bda-research/node-cra
   - [Follow links in page](#follow-links-in-page)
   - [Item loader for model](#item-loader-for-model)
   - [Download images and other files](#download-images-and-other-files)
+  - [Use splash to snapshot page](#use-splash-to-snapshot-page)
 
 ### Our first spider 
 Spiders are classes that you define and use to scrape information from a website (or a group of websites). They must subclass `TaiSpider` and define the initial requests to make, optionally how to follow links in the pages, and how to parse the downloaded page content to extract data.
@@ -159,45 +160,117 @@ module.exports = new Item({
 
 ### Download Images and Other Files
 Some of our web scraping tasks involves downloading images or other file types, like grabbing images to train image recognition algorithms. 
-With crawler, a few settings will do the trick; simply set `IMAGES_STORE` to the output path, and yield `Image` object contains `url`, `type`, `filename` and `body`.
+With crawler, a few settings will do the trick; simply set `FILE_STORE` to the output path, and yield object return by `response.download` function.
 
-If you are not give filename, the files are stored using a MD5 hash of their URLs for the file names.
+The files are stored using a MD5 hash of their URLs for the file names. You can use `extData` pass some properties to next pipeline, or use `cb` function to build a object.
 
 ```javascript
 'use strict'
 
 const { TaiSpider } = require('tai-spider');
-const { Image } = require('tai-spider').types;
 
-class ImageSpider extends TaiSpider {
+class MmonlySpider extends TaiSpider {
 
     constructor(options = {}) {
         super(options);
-        this.name = 'image';
+        this.name = 'mmonly';
         this.debug = true;
         this.start_urls = [
             'https://www.mmonly.cc/gxtp/',
         ];
         this.envs['ECHO'] = false;
-        this.envs['IMAGES_STORE'] = 'output';
+        this.envs['FILE_STORE'] = 'output';
+        this.addPipeline(require('../pipeline/echo'));
     }
 
     *parse(response) {
         for (let ele of response.css('div.item')) {
             let imageEle = response.css('img', ele)[0];
-            yield response.follow(imageEle.attribs['src'], this.parseImage, { filename: imageEle.attribs['alt'] + '.jpg' });
+            yield response.download(imageEle.attribs['src'], {
+                type: 'jpg',
+                extData: {
+                    title: imageEle.attribs['alt'],
+                }
+            });
         }
-    }
-
-    *parseImage(response) {
-        yield new Image({
-            url: response.options.uri,
-            type: 'jpg',
-            filename: response.options.filename,
-            body: response.body,
-        });
     }
 }
 
-module.exports = ImageSpider;
+module.exports = MmonlySpider;
+```
+
+In above example, `extData` will be transfer to next pipeline with some infos of stored file, here is `echo` pipeline.
+
+```javascript
+'use strict';
+
+class EchoPipeline {
+
+	process_item(item, spider) {
+		console.log(item);
+		return item;
+	}
+}
+
+module.exports = EchoPipeline;
+```
+
+Or use `cb` function to build a new object to transfer:
+
+```javascript
+    *parse(response) {
+        let data = response.getJSON();
+        for (let item of data['publishData'].slice(0, 3)) {
+            yield response.download(item['bulletinUrl'], {
+                type: 'pdf',
+                cb: (uid) => {
+                    return Object.assign({}, item, { uid });
+                }
+            })
+        };
+    }
+```
+### Use splash to snapshot page
+
+Splash is a standalone server, which provides HTTP api to make page's snapshot. Here is [API Doc](https://splash.readthedocs.io/en/stable/api.html).
+
+You can use script under `docker/splash` to start splash service, just run the below command:
+
+```shell
+docker-compose up -d
+```
+
+`Tai Spider` add support for splash, you simply set `CAPTURE_STORE` to the output path, `SPLASH_SERVER` to the splash server, and yield object return by `response.capture_all` or `response.capture` function.
+
+```javascript
+'use strict'
+
+const { TaiSpider } = require('tai-spider');
+
+class JianshuSpider extends TaiSpider {
+
+    constructor(options = {}) {
+        super(options);
+        this.name = 'jianshu';
+        this.debug = true;
+        this.start_urls = [
+            'https://www.jianshu.com/',
+        ];
+        this.envs['SPLASH_SERVER'] = 'http://localhost:8050';
+        this.envs['CAPTURE_STORE'] = 'output';
+    }
+
+    *parse(response) {
+        for (let ele of response.css('div.content')) {
+            yield* response.capture_all(response.css('a.title', ele), {
+                render_all: 0,
+                wait: 0,
+                viewport: '1200x2000',
+            });
+        }
+    }
+
+}
+
+module.exports = JianshuSpider;
 ```
