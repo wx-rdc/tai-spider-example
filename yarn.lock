@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@elastic/elasticsearch@^7.15.0":
+  version "7.15.0"
+  resolved "https://registry.npmmirror.com/@elastic/elasticsearch/download/@elastic/elasticsearch-7.15.0.tgz?cache=0&sync_timestamp=1635946257170&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40elastic%2Felasticsearch%2Fdownload%2F%40elastic%2Felasticsearch-7.15.0.tgz#4b009a87e0b11b8cfd2e4f378f0292574bc17300"
+  integrity sha1-SwCah+CxG4z9Lk83jwKSV0vBcwA=
+  dependencies:
+    debug "^4.3.1"
+    hpagent "^0.1.1"
+    ms "^2.1.3"
+    secure-json-parse "^2.4.0"
+
 ajv@^6.12.3:
   version "6.12.6"
   resolved "https://registry.npmmirror.com/ajv/download/ajv-6.12.6.tgz?cache=0&sync_timestamp=1636406052395&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fajv%2Fdownload%2Fajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
@@ -169,6 +179,13 @@ debug@^4.1.1:
   dependencies:
     ms "2.1.2"
 
+debug@^4.3.1:
+  version "4.3.3"
+  resolved "https://registry.npmmirror.com/debug/download/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
+  integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
+  dependencies:
+    ms "2.1.2"
+
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/delayed-stream/download/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
@@ -300,6 +317,11 @@ has-flag@^4.0.0:
   resolved "https://registry.nlark.com/has-flag/download/has-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
   integrity sha1-lEdx/ZyByBJlxNaUGGDaBrtZR5s=
 
+hpagent@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.nlark.com/hpagent/download/hpagent-0.1.2.tgz#cab39c66d4df2d4377dbd212295d878deb9bdaa9"
+  integrity sha1-yrOcZtTfLUN329ISKV2Hjeub2qk=
+
 htmlparser2@^6.1.0:
   version "6.1.0"
   resolved "https://registry.nlark.com/htmlparser2/download/htmlparser2-6.1.0.tgz?cache=0&sync_timestamp=1631386311915&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhtmlparser2%2Fdownload%2Fhtmlparser2-6.1.0.tgz#c4d762b6c3371a05dbe65e94ae43a9f845fb8fb7"
@@ -421,6 +443,11 @@ ms@2.1.2:
   resolved "https://registry.npmmirror.com/ms/download/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
 
+ms@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.npmmirror.com/ms/download/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
+  integrity sha1-V0yBOM4dK1hh8LRFedut1gxmFbI=
+
 node-url-utils@^0.4.0:
   version "0.4.0"
   resolved "https://registry.nlark.com/node-url-utils/download/node-url-utils-0.4.0.tgz#e2a10e7ddaaae051223464cc7b03d21ee95caf15"
@@ -525,6 +552,11 @@ safe-buffer@^5.0.1, safe-buffer@^5.1.2:
   version "2.1.2"
   resolved "https://registry.nlark.com/safer-buffer/download/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha1-RPoWGwGHuVSd2Eu5GAL5vYOFzWo=
+
+secure-json-parse@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npm.taobao.org/secure-json-parse/download/secure-json-parse-2.4.0.tgz?cache=0&sync_timestamp=1617703550593&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsecure-json-parse%2Fdownload%2Fsecure-json-parse-2.4.0.tgz#5aaeaaef85c7a417f76271a4f5b0cc3315ddca85"
+  integrity sha1-Wq6q74XHpBf3YnGk9bDMMxXdyoU=
 
 seenreq@^3.0.0:
   version "3.0.0"
