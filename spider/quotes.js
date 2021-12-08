@@ -16,10 +16,10 @@ class QuotesSpider extends TaiSpider {
     *parse(response) {
         for (let ele of response.css('div.quote')) {
             yield {
-                'text': response.css('span.text', ele).text(),
-                'href': response.css('span a', ele)[0].attribs['href']
+                'text': ele.css('span.text').extract_first(),
+                'href': ele.css('span a').get(0).attr('href')
             };
-            yield* response.follow_all(response.css('span a', ele), this.parseAuthor);
+            yield* response.follow_all(ele.css('span a'), this.parseAuthor);
         }
     }
 

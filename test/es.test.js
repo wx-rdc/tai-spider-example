@@ -178,7 +178,7 @@ async function upsert() {
 
 async function clean() {
     const { body } = await client.indices.delete({
-        index: 'game-of-thrones',
+        index: 'tai-article',
     });
 
     console.log(body)
@@ -192,4 +192,4 @@ async function list() {
     console.log(body)
 }
 
-list().catch(console.log)
+clean().catch(console.log)

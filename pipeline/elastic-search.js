@@ -19,13 +19,15 @@ class ElasticSearchPipeline {
         })
     }
 
-    async process_item(item, spider) {
-        const { index_name, doc_id, ...body } = item;
+    async process_item(item, spider, request) {
+        const { index_name, ...body } = item;
+        const reqKey = request.reqKey;
+
         if (index_name) {
-            if (doc_id) {
+            if (reqKey) {
                 await this.client.index({
-                    index: `tai-${index_name}`,
-                    id: body[doc_id],
+                    index: index_name,
+                    id: reqKey,
                     body: {
                         _spider_name: spider.name,
                         ...body

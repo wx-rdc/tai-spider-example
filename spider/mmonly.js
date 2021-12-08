@@ -18,11 +18,11 @@ class MmonlySpider extends TaiSpider {
 
     *parse(response) {
         for (let ele of response.css('div.item')) {
-            let imageEle = response.css('img', ele)[0];
-            yield response.download(imageEle.attribs['src'], {
+            let imageEle = ele.css('img').get(0);
+            yield response.download(imageEle.attr('src'), {
                 type: 'jpg',
                 extData: {
-                    title: imageEle.attribs['alt'],
+                    title: imageEle.attr('alt'),
                 }
             });
         }

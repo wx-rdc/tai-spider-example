@@ -17,7 +17,7 @@ class JianshuSpider extends TaiSpider {
 
     *parse(response) {
         for (let ele of response.css('div.content')) {
-            yield* response.capture_all(response.css('a.title', ele), {
+            yield* response.capture_all(ele.css('a.title'), {
                 render_all: 0,
                 wait: 0,
                 // engine: "chromium",

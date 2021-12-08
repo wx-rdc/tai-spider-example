@@ -33,8 +33,7 @@ class SpacenewsSpider extends TaiSpider {
 
     *parseArticle(response, spider) {
         yield Object.assign({
-            index_name: 'article',
-            doc_id: 'canonicalLink',
+            index_name: 'tai-article',
         }, response.extract());
         // const loader = new ItemLoader(response, require('../model/article'));
         // yield loader.load_item();

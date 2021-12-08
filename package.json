@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "@elastic/elasticsearch": "^7.15.0",
-    "tai-spider": "^0.1.4"
+    "tai-spider": "^0.1.5"
   }
 }
