@@ -34,7 +34,8 @@ class QuotesSpider extends TaiSpider {
     *parse(response) {
         for (let ele of response.css('div.quote')) {
             yield {
-                'text': response.css('span.text', ele).text(),
+                'text': ele.css('span.text').extract_first(),
+                'href': ele.css('span a').get(0).attr('href')
             };
         }
     }

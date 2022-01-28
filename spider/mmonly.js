@@ -11,20 +11,27 @@ class MmonlySpider extends TaiSpider {
         this.start_urls = [
             'https://www.mmonly.cc/gxtp/',
         ];
-        this.envs['ECHO'] = false;
         this.envs['FILE_STORE'] = 'output';
-        this.addPipeline(require('../pipeline/echo'));
     }
 
     *parse(response) {
         for (let ele of response.css('div.item')) {
             let imageEle = ele.css('img').get(0);
-            yield response.download(imageEle.attr('src'), {
-                type: 'jpg',
+            yield response.follow(imageEle.attr('src'), this.parseImage, {
+                download: true,
+                options: {
+                    type: 'jpg',
+                },
                 extData: {
                     title: imageEle.attr('alt'),
                 }
             });
+        }
+    }
+
+    *parseImage(response) {
+        yield {
+            ...response.options.extData,
         }
     }
 }

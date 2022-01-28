@@ -13,6 +13,10 @@ module.exports = appInfo => {
     //     clearOnQuit: false,
     // };
 
+    config.store = {
+        path: 'output'
+    }
+
     return {
         ...config,
     };

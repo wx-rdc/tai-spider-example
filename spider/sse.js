@@ -19,13 +19,20 @@ class SseSpider extends TaiSpider {
     *parse(response) {
         let data = response.getJSON();
         for (let item of data['publishData'].slice(0, 3)) {
-            yield response.download(item['bulletinUrl'], {
-                type: 'pdf',
-                cb: (uid) => {
-                    return Object.assign({}, item, { uid });
-                }
+            yield response.follow(item['bulletinUrl'], this.save, {
+                download: true,
+                options: {
+                    type: 'pdf',
+                },
+                extData: item,
             })
         };
+    }
+
+    *save(response) {
+        yield {
+            ...response.options.extData
+        }
     }
 
 }
